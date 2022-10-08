@@ -25,6 +25,33 @@ const reviews = [
 ];
 
 function App() {
+  const travelItem: {
+    image: string;
+    name: string;
+    totalReviews: number;
+    rating: number;
+    location: string;
+    price: number;
+    date: string;
+    departure: string;
+    features: {
+      wifi: boolean;
+      parking: boolean;
+      offer: boolean;
+    };
+  }[] = [
+    {
+      image: "https://source.unsplash.com/random",
+      name: "New Zealand",
+      totalReviews: 5,
+      rating: 5,
+      location: "New Zealand",
+      price: 10,
+      date: "31/01/2002",
+      departure: "Viet Nam",
+      features: { wifi: true, parking: true, offer: true },
+    },
+  ];
   const [count, setCount] = useState(0);
   function displayReview(totalReviews: number, name: string, premium: boolean) {
     return (
