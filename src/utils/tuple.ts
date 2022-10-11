@@ -1,15 +1,15 @@
 export function simpleUseState(
-  initialValue: string
-): [string, (newValue: string) => void] {
+  value: string
+): [() => string, (newValue: string) => void] {
   return [
-    initialValue,
+    () => value,
     (newValue: string) => {
-      initialValue = newValue;
+      value = newValue;
     },
   ];
 }
 
-const [val, setVal] = simpleUseState("Trickey");
-console.log(val);
-setVal("Tien Thanh");
-console.log(val);
+const [getter, setter] = simpleUseState("Trickey");
+console.log(getter());
+setter("Tien Thanh");
+console.log(getter());
