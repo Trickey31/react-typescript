@@ -1,44 +1,11 @@
-import React, { useReducer, useRef } from "react";
+import useTodos from "./hooks/useTodos";
 
 const Heading = ({ title }: { title: String }) => {
   return <h2 className="font-primary font-bold text-2xl mb-5">{title}</h2>;
 };
-type ActionType =
-  | { type: "ADD"; text: string }
-  | { type: "REMOVE"; id: number };
-interface iTodo {
-  id: number;
-  text: string;
-}
-const todoReducer = (state: iTodo[], action: ActionType) => {
-  switch (action.type) {
-    case "ADD":
-      return [...state, { id: state.length, text: action.text }];
-    case "REMOVE":
-      return state.filter((todo) => todo.id !== action.id);
-    default:
-      throw new Error();
-  }
-};
-const initialState: iTodo[] = [];
+
 const App = () => {
-  const [todos, dispatch] = useReducer(todoReducer, initialState);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const onAddTodo = () => {
-    if (inputRef.current) {
-      dispatch({
-        type: "ADD",
-        text: inputRef.current.value,
-      });
-      inputRef.current.value = "";
-    }
-  };
-  const onRemoveTodo = (todoId: number) => {
-    dispatch({
-      type: "REMOVE",
-      id: todoId,
-    });
-  };
+  const { todos, onAddTodo, onRemoveTodo, inputRef } = useTodos([]);
   return (
     <div>
       <Heading title="Todo App"></Heading>
