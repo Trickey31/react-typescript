@@ -24,6 +24,7 @@ const App = () => {
           </button>
         </div>
         <RenderList
+          keyExtractor={(todo) => todo.id}
           items={todos}
           render={(todo) => (
             <div className="mt-5 flex items-center gap-x-5">
@@ -56,11 +57,19 @@ const App = () => {
 const RenderList = <T,>({
   items,
   render,
+  keyExtractor,
 }: {
   items: T[];
   render: (item: T) => React.ReactNode;
+  keyExtractor: (item: T) => number;
 }) => {
-  return <>{items.map((item) => render(item))}</>;
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={keyExtractor(item)}>{render(item)}</li>
+      ))}
+    </ul>
+  );
 };
 
 export default App;
