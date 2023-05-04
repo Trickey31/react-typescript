@@ -23,7 +23,21 @@ const App = () => {
             Add
           </button>
         </div>
-        {todos.map((todo) => (
+        <RenderList
+          items={todos}
+          render={(todo) => (
+            <div className="mt-5 flex items-center gap-x-5">
+              <span>{todo.text}</span>
+              <button
+                onClick={() => onRemoveTodo(todo.id)}
+                className="text-white bg-red-500 rounded-lg p-2 text-sm font-medium"
+              >
+                Remove
+              </button>
+            </div>
+          )}
+        ></RenderList>
+        {/* {todos.map((todo) => (
           <div className="mt-5 flex items-center gap-x-5">
             <span>{todo.text}</span>
             <button
@@ -33,10 +47,20 @@ const App = () => {
               Remove
             </button>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
+};
+
+const RenderList = <T,>({
+  items,
+  render,
+}: {
+  items: T[];
+  render: (item: T) => React.ReactNode;
+}) => {
+  return <>{items.map((item) => render(item))}</>;
 };
 
 export default App;
