@@ -1,4 +1,5 @@
 import useTodos from "./hooks/useTodos";
+import React from "react";
 
 const Heading = ({ title }: { title: String }) => {
   return <h2 className="font-primary font-bold text-2xl mb-5">{title}</h2>;
@@ -38,6 +39,9 @@ const App = () => {
             </div>
           )}
         ></RenderList>
+        <View as="button" type="button">
+          This is heading2
+        </View>
         {/* {todos.map((todo) => (
           <div className="mt-5 flex items-center gap-x-5">
             <span>{todo.text}</span>
@@ -70,6 +74,18 @@ const RenderList = <T,>({
       ))}
     </ul>
   );
+};
+
+type ViewProps<T extends keyof JSX.IntrinsicElements> = {
+  as: T;
+  children: React.ReactNode;
+} & JSX.IntrinsicElements[T];
+const View = <T extends keyof JSX.IntrinsicElements>({
+  as,
+  children,
+  ...rest
+}: ViewProps<T>) => {
+  return React.createElement(as, { ...rest }, children);
 };
 
 export default App;
